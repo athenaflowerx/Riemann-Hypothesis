@@ -77,6 +77,14 @@ Any instrument can also be run standalone, e.g. `python3 weld_detector.py`.
 
 ---
 
+## Citation
+
+Zenodo Archive: https://doi.org/10.5281/zenodo.23019558
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23019558.svg)](https://doi.org/10.5281/zenodo.23019558)
+
+---
+
 ## 中文摘要
 
 9 个本地数值仪器 + 一键回归（`run_all.py`），全程离线、零联网。
