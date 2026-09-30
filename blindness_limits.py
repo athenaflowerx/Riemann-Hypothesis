@@ -63,7 +63,7 @@ if __name__ == "__main__":
     print(f"   outside-limit reading (u=0.05 step): dF = {abs(Fa-Fb):.4f} (> eps, decidable)")
 
     # Layer 6: ±0i seam (F pair; u* -> 0, machine precision)
-    g1 = 14.1347251417946932
+    g1 = 14.1347251417346938
     def F_pair(d):
         Fa = F(0.5+g1*d, g1); Fb = F(0.5-g1*d, g1)
         return (Fa+Fb) % PI2

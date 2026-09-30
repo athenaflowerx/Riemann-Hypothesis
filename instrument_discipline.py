@@ -61,7 +61,7 @@ def run_all():
     print("[D2 analytic-first] theta' entirely via psi^(0) analytic form (no numerical differentiation in this module): PASS (structural)")
     ok3, info = d3_anchor()
     print(f"[D3 tight solving + anchor] {'PASS' if ok3 else 'FAIL'} (k={info['k']}, |gamma-gamma0|={info['dgamma']:.2e}, theta'={info['thp']:.5f})")
-    ok4, triple = d4_straddle(lambda t: float(t)-14.1347251417946932, 14.1347251417946932, 1e-4)
+    ok4, triple = d4_straddle(lambda t: float(t)-14.1347251417346938, 14.1347251417346938, 1e-4)
     print(f"[D4 straddle] real-axis-type model straddle: {'PASS' if ok4 else 'FAIL'} (eval points: {triple[1]:+.1e} / {triple[2]:+.1e})")
     ok5a, ok5b, chi0, chi1 = d5_detector_selftest()
     print(f"[D5 positive control] synthetic chi=0 ((z^2+1)^2 double zero): {'PASS' if ok5a else 'FAIL'} {chi0}")

@@ -5,7 +5,7 @@
 import numpy as np, mpmath as mp
 
 C_DVP = 1/57.9   # classical de la Vallee Poussin constant
-G1 = 14.1347251417946932
+G1 = 14.1347251417346938
 
 def theta_RS(t, dps=25):
     mp.mp.dps = dps

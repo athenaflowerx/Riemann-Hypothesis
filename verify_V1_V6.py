@@ -16,7 +16,7 @@ def theta_RS(t):
     ref = mp.im((z-mp.mpf('0.5'))*mp.log(z)-z) - t/2*mp.log(mp.pi)
     return p + 2*mp.pi*mp.nint((ref-p)/(2*mp.pi))
 
-G1 = mp.mpf('14.1347251417946932')
+G1 = mp.mpf('14.1347251417346938')
 s0 = mp.mpf('0.5')+1j*G1
 reading = (mp.arg(mp.diff(mp.zeta, s0)) + theta_RS(G1) + mp.pi/2) % (mp.pi/2)
 
