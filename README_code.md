@@ -79,7 +79,8 @@ Any instrument can also be run standalone, e.g. `python3 weld_detector.py`.
 
 ## Citation
 
-- Latest version (always points to newest): https://doi.org/10.5281/zenodo.23027848
+- Latest version (always points to newest): https://doi.org/10.5281/zenodo.23068324
+- v2.1 (2026-09-29): https://doi.org/10.5281/zenodo.23027848
 - v2.0 (2026-09-28): https://doi.org/10.5281/zenodo.23019558
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23027848.svg)](https://doi.org/10.5281/zenodo.23027848)
