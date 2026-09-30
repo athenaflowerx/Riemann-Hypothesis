@@ -1,11 +1,13 @@
 # RH Proof Package — Code Instruments (README)
 
 Authors: Guang Yang (ORCID: 0000-0003-0599-2881) · Yueting Xiao (ORCID: 0009-0002-0268-0655)
-Date: 2026-09-28 · Package v3-13.1
+Date: 2026-09-30 · Package v3.6
 
-Nine local numerical instruments plus a one-click regression driver. Everything runs
-offline: no network access, no data download, no external services. Each instrument is
-self-contained, prints its own PASS/FAIL verdict, and exits nonzero on failure.
+Nine local numerical instruments, a terminal-form verification suite (29 checks,
+sections A–I), plus a one-click regression driver (11 jobs, legacy regression included).
+Everything runs offline: no network access, no data download, no external services.
+Each instrument is self-contained, prints its own PASS/FAIL verdict, and exits nonzero
+on failure.
 
 > 中文要点见文末（Chinese summary at the end）。
 
@@ -22,10 +24,12 @@ No other dependencies. No GPU, no network.
 
 ```bash
 cd code
-python3 run_all.py        # runs all 9 instruments sequentially
+python3 run_all.py                        # 11 jobs: 9 instruments + 2 legacy regressions
+python3 final_instruments_2026-09-30.py   # terminal-form suite A–I (29 checks)
 ```
 
-Expected final line: `== all regression passed ==` (total runtime ≈ 30 s).
+Expected final lines: `== all regression passed ==` (≈ 45 s) and
+`== RESULT: 29/29 PASS ==` (≈ 30 s).
 Any instrument can also be run standalone, e.g. `python3 weld_detector.py`.
 
 ## 3. Instrument manifest
@@ -41,7 +45,8 @@ Any instrument can also be run standalone, e.g. `python3 weld_detector.py`.
 | `verify_0i_program.py` | 0i-program numerical verification | Phase of ζ′(ρ₁) on the lock lattice; ±0i seam readings at machine precision. |
 | `verify_V1_V6.py` | Checklist V1–V6 | M5 pin differences, skeleton-vertical heights, near-skeleton-vertical zeros (γ = 711.900289 …). |
 | `instrument_discipline.py` | Discipline automation | Instrument-layer discipline checks (guards active, precision policy, no silent fallbacks). |
-| `run_all.py` | Regression driver | Runs the 9 instruments above, reports per-job PASS/FAIL and timings. |
+| `final_instruments_2026-09-30.py` | Terminal-form suite A–I | Reproduces every numerical claim of the final increment package: layer ladder (half-turn law / Gram deviation); configuration issuing + data-wall law; weld parity readout; correct/incorrect discrimination (m-integrality); convolution readout c₂; FE closure H-condition (vacuous in strip); FE residue + seam faces; Euclid increment + i-vortex (1+i)-power tower; face book (seam two archives in the Arg ξ′ readout). 29/29 PASS. |
+| `run_all.py` | Regression driver | Runs the 9 instruments plus 2 legacy regressions (`legacy_v1.9/verify_merged_v5.py`, `legacy_v1.9/rc_T126_T130_experiments.py`); reports per-job PASS/FAIL and timings. |
 
 ## 4. Expected regression output
 
@@ -55,8 +60,13 @@ Any instrument can also be run standalone, e.g. `python3 weld_detector.py`.
 [PASS] instrument-layer discipline automation    (~1 s)
 [PASS] 0i program numerical verification         (~1 s)
 [PASS] checklist V1-V6 verification              (~1 s)
+[PASS] [legacy] merged v5                        (~1 s)
+[PASS] [legacy] T126-T130 experiments            (~12 s)
 == all regression passed ==
 ```
+
+Terminal-form suite: `== RESULT: 29/29 PASS ==` (160-zero table; FE relative
+residual 6.55 × 10⁻⁵¹ at dps = 50).
 
 ## 5. Key numerical results (reproduced by the suite)
 
@@ -66,14 +76,17 @@ Any instrument can also be run standalone, e.g. `python3 weld_detector.py`.
 - Blind-region crossing min |ζ| = 0.12203.
 - ±0i pair sums: 7.9 × 10⁻⁶ / 7.9 × 10⁻⁸.
 - Implanted off-line zero β₀ = 0.6 reads walk slope ≈ 1.1 (theory: ½ + 0.6); real zeros read 1.0.
+- Terminal-form suite: 29/29 PASS across sections A–I, incl. the face book showing only
+  the two [+0i, −0i] archive rows, and the FE closure H-condition vacuous inside the strip.
 
 ## 6. Notes
 
-- `legacy_v1.9/` (archival originals) is intentionally **not** part of this release;
-  the 9 instruments above are the current maintained versions.
+- `legacy_v1.9/` (archival originals) ships with the package and is exercised by
+  `run_all.py` as two guarded regression jobs; the 9 instruments plus the terminal-form
+  suite above are the current maintained versions.
 - All computations are local; floating-point policy is stated inside each instrument
   (mpmath at ≥ 30 dps where branch decisions are made).
-- License/citation: cite the package as *RH Proof Package v3-13.1 (2026-09-28)*.
+- License/citation: cite the package as *RH Proof Package v3.6 (2026-09-30)*.
 
 ---
 
@@ -83,16 +96,27 @@ Any instrument can also be run standalone, e.g. `python3 weld_detector.py`.
 - v2.1 (2026-09-29): https://doi.org/10.5281/zenodo.23027848
 - v2.0 (2026-09-28): https://doi.org/10.5281/zenodo.23019558
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23027848.svg)](https://doi.org/10.5281/zenodo.23027848)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23068324.svg)](https://doi.org/10.5281/zenodo.23068324)
 
 ---
 
 ## 中文摘要
 
-9 个本地数值仪器 + 一键回归（`run_all.py`），全程离线、零联网。
+9 个本地数值仪器 + 终形核验套件（A–I 共 29 项）+ 一键回归（`run_all.py`，11 个任务，
+含 2 项 legacy 回归），全程离线、零联网。
 
 - **依赖**：Python ≥ 3.10，`numpy / scipy / mpmath`。
-- **运行**：`cd code && python3 run_all.py`，末行 `== all regression passed ==` 即全过（约 30 秒）；每个仪器也可单独运行。
-- **构成**：θ 三守卫基础模块、焊接探测器（B.3/B.4 数据来源：钉 gap π / 焊 gap mπ，mod-π/2 下焊不可见 = 焊接投影损失 W2）、量子交叉外推（γₓ = 2π·e⁴ᵖⁱ ≈ 1.80×10⁶）、盲区极限（附录 A 数据源）、旋转扫描、五层统一判别器（植入 β₀=0.6 被捕获、真零点全过）、0i 纲领验证、V1–V6 清单核验、仪器层纪律自动化。
-- **关键复现数**：焊 gap 2π/3π/5π（阶精确）；盲区穿越 min|ζ| = 0.12203；±0i 对和 7.9×10⁻⁶ / 7.9×10⁻⁸；植入零点读 slope ≈ 1.1，真零点读 1.0。
-- **不含** `legacy_v1.9/`（归档旧版）；所有计算本地完成，分支判定处使用 mpmath ≥ 30 位精度。
+- **运行**：`cd code && python3 run_all.py`，末行 `== all regression passed ==` 即全过
+  （约 45 秒）；`python3 final_instruments_2026-09-30.py` 末行 `== RESULT: 29/29 PASS ==`
+  （约 30 秒）；每个仪器也可单独运行。
+- **构成**：θ 三守卫基础模块、焊接探测器（B.3/B.4 数据来源：钉 gap π / 焊 gap mπ，
+  mod-π/2 下焊不可见 = 焊接投影损失 W2）、量子交叉外推（γₓ = 2π·e⁴ᵖⁱ ≈ 1.80×10⁶）、
+  盲区极限（附录 A 数据源）、旋转扫描、五层统一判别器（植入 β₀=0.6 被捕获、真零点全过）、
+  0i 纲领验证、V1–V6 清单核验、仪器层纪律自动化；终形套件覆盖层梯、构型签发+数据墙、
+  焊接奇偶、m-整性判别、卷积读数 c₂、FE 闭合 H-条件（带内空虚）、FE 残差+缝面、
+  欧几里得增量 + i-vortex (1+i)-power 塔、面簿（Arg ξ′ 读数下仅两档 [+0i,−0i] 档案）。
+- **关键复现数**：焊 gap 2π/3π/5π（阶精确）；盲区穿越 min|ζ| = 0.12203；
+  ±0i 对和 7.9×10⁻⁶ / 7.9×10⁻⁸；植入零点读 slope ≈ 1.1，真零点读 1.0；
+  FE 相对残差 6.55×10⁻⁵¹（dps=50）。
+- `legacy_v1.9/` 随包附存并纳入回归守护；所有计算本地完成，分支判定处使用
+  mpmath ≥ 30 位精度。
