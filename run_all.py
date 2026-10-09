@@ -1,4 +1,4 @@
-# run_all.py · One-click regression for the RH discrimination package v3.0 (local, no network)
+# run_all.py · One-click regression for the RH discrimination package v3.6 + v3.7 addendum (local, no network)
 # Authors: Guang Yang (ORCID: 0000-0003-0599-2881), Yueting Xiao (ORCID: 0009-0002-0268-0655)
 # Runs the main instruments sequentially plus legacy regression; any nonzero exit is reported.
 import subprocess, sys, os, time
@@ -15,6 +15,9 @@ JOBS = [
     ("verify_V1_V6.py",          "checklist V1-V6 verification"),
     ("legacy_v1.9/verify_merged_v5.py",        "[legacy] merged v5"),
     ("legacy_v1.9/rc_T126_T130_experiments.py","[legacy] T126-T130 experiments"),
+    ("final_instruments_2026-09-30.py",        "terminal-form suite A-I (26 checks)"),
+    ("v37_verification.py",                    "terminal block II suite (22 checks)"),
+    ("unreachability_closedforms.py",          "unreachability transformation closed forms"),
 ]
 fails = []
 for f, desc in JOBS:
